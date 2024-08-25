@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <meta name="build-time" content="<%- buildTime %>" />
+    <meta name="commit-message" content="<%- commitMessage %>" />
+
+    <title><%- title %></title>
   </head>
   <body>
     <div id="app"></div>
+
+    <div id="page-loading__container">
+      <div id="page-loading__spinner"></div>
+
+      <div id="page-loading__text"></div>
+    </div>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
