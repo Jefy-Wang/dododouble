@@ -11,6 +11,9 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    'process.env.GIT': JSON.stringify(GIT),
+  }, // 定义全局常量替换方式
   build: {
     sourcemap: false, // 关闭 sourcemap
     chunkSizeWarningLimit: 1500,
