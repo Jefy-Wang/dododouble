@@ -1,5 +1,4 @@
 <script setup>
-import Footer from '@/components/layout/Footer.vue'
 import HomeThree from '@/components/home/index.js'
 import { setPageLoading } from '@/shared/index.js'
 import { onMounted, onUnmounted, ref } from 'vue'
@@ -33,18 +32,11 @@ onUnmounted(() => {
 
 <template>
   <div ref="threeEl" class="home-three-container"></div>
-
-  <Footer class="three-footer" :delay="false"></Footer>
 </template>
 
 <style scoped>
 .home-three-container {
   height: 100vh;
   width: 100%;
-}
-
-.three-footer {
-  position: absolute;
-  bottom: 0;
 }
 </style>
