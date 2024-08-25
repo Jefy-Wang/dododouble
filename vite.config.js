@@ -1,7 +1,7 @@
-import GIT from './build/git'
+import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
+import GIT from './build/git'
 import vue from '@vitejs/plugin-vue'
 import zipPack from 'vite-plugin-zip-pack'
 import legacyPlugin from '@vitejs/plugin-legacy'
