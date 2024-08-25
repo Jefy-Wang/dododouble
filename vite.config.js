@@ -11,6 +11,29 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    sourcemap: false, // 关闭 sourcemap
+    chunkSizeWarningLimit: 1500,
+    minify: 'terser', // 混淆器(代码压缩和优化)，terser 构建后文件体积更小
+    terserOptions: {
+      compress: {
+        drop_console: true, // 清除 console
+        drop_debugger: true, // 清除 debugger
+      },
+    },
+    rollupOptions: {
+      output: {
+        chunkFileNames: 'js/[name]-[hash].js',
+        entryFileNames: 'js/[name]-[hash].js',
+        assetFileNames: '[ext]/[name]-[hash].[ext]',
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0].toString() // 超大静态资源拆分
+          }
+        }
+      }
+    }
+  },
   plugins: [
     vue(),
     vueDevTools(),
