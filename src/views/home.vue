@@ -4,9 +4,11 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { setPageLoading } from '@/shared/index.js'
 import Footer from '@/components/layout/Footer.vue'
 
+// 普通变量
+let homeThree = null
+
 // 状态 State
 const threeEl = ref(null)
-let homeThree = ref(null)
 
 // 行为 Action
 const init = async () => {
