@@ -1,14 +1,14 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import Header from '@/components/layout/Header.vue'
-import Footer from '@/components/layout/Footer.vue'
+import AppHeader from '@/components/layout/AppHeader.vue'
+import AppFooter from '@/components/layout/AppFooter.vue'
 
 </script>
 
 <template>
-  <Header></Header>
+  <AppHeader></AppHeader>
 
   <RouterView></RouterView>
 
-  <Footer></Footer>
+  <AppFooter></AppFooter>
 </template>
