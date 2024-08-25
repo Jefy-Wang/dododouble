@@ -1,10 +1,12 @@
 import './assets/main.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { setPageLoading } from '@/shared'
 
 import App from './App.vue'
 import router from './router'
+
+setPageLoading() // 开启页面加载效果
 
 const app = createApp(App)
 
