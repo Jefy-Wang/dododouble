@@ -1,8 +1,8 @@
 <script setup>
-import HomeThree from '@/components/home/index.js'
-import { onMounted, onUnmounted, ref } from 'vue'
-import { setPageLoading } from '@/shared/index.js'
 import Footer from '@/components/layout/Footer.vue'
+import HomeThree from '@/components/home/index.js'
+import { setPageLoading } from '@/shared/index.js'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 // 普通变量
 let homeThree = null
