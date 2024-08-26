@@ -1,9 +1,10 @@
 <script setup>
+// 顶层导入 import
 import HomeThree from '@/components/home/index.js'
 import { setPageLoading } from '@/shared/index.js'
 import { onMounted, onUnmounted, ref } from 'vue'
 
-// 普通变量
+// 普通变量 variable
 let homeThree = null
 
 // 状态 State
@@ -25,6 +26,7 @@ onMounted(() => {
   init()
 })
 
+// 生命周期 LifeCycle
 onUnmounted(() => {
   homeThree.destroy()
 })
