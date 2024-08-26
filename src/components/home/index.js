@@ -27,9 +27,7 @@ export default class Home {
 
     loop.updatables.push(controls)
     scene.add(light.ambientLight, light.mainLight) // 向场景中添加光照
-
-    const resizer = new Resizer({ el, camera, renderer })
-
+    new Resizer({ el, camera, renderer })
     scene.add(createAxesHelper(), createGridHelper())
   }
 
