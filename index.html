@@ -8,6 +8,22 @@
     <meta name="commit-message" content="<%- commitMessage %>" />
 
     <title><%- title %></title>
+
+    <!--  应用HTML页初始样式  -->
+    <style>
+      html {
+        min-height: 100vh;
+        background: #2c3e50;
+        body {
+          overflow: hidden;
+
+          #app {
+            height: 100vh;
+            background: #2c3e50;
+          }
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
