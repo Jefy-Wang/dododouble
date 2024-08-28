@@ -1,0 +1,14 @@
+:root {
+    --dd2-bg-color: #2c3e50;
+
+    min-height: 100vh;
+    background: var(--dd2-bg-color);
+    body {
+        overflow: hidden;
+
+        #app {
+            height: 100vh;
+            background: var(--dd2-bg-color);
+        }
+    }
+}
