@@ -1,6 +1,7 @@
 import os from 'os'
 import chalk from 'chalk'
 import child from 'child_process'
+import get from 'lodash/get.js'
 
 // 关闭指定端口
 export function closePort(port) {
@@ -34,6 +35,9 @@ export default function closePortPlugin() {
         if (e.code !== 'EADDRINUSE') return
 
         closePort(e.port)
+
+        const strictPort = get(server, 'config.server.strictPort')
+        if (!strictPort) return
 
         const beauty = `${chalk.blue(` → Restart on port`)} ${chalk.blueBright(e.port)}${chalk.blue(':')} ${chalk.whiteBright('npm run dev')}`
 
