@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 import GIT from './build/git'
 import vue from '@vitejs/plugin-vue'
 import zipPack from 'vite-plugin-zip-pack'
+import closePort from './build/close-port.js'
 import legacyPlugin from '@vitejs/plugin-legacy'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import viteCompression from 'vite-plugin-compression'
@@ -11,6 +12,10 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: '11447',
+    strictPort: true // 若端口已被占用则会直接退出
+  },
   define: {
     'process.env.GIT': JSON.stringify(GIT),
   }, // 定义全局常量替换方式
@@ -39,6 +44,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    closePort(),
     vueDevTools(),
     zipPack({
       outDir: './' // 将 dist 目录，压缩为 dist.zip（默认在 dist-zip 目录下，改为存放在项目根目录下）
