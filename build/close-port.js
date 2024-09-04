@@ -39,7 +39,7 @@ export default function closePortPlugin() {
         const strictPort = get(server, 'config.server.strictPort')
         if (!strictPort) return
 
-        const beauty = `${chalk.blue(` → Restart on port`)} ${chalk.blueBright(e.port)}${chalk.blue(':')} ${chalk.whiteBright('npm run dev')}`
+        const beauty = `${chalk.blue(` → Restart on port`)} ${chalk.blueBright(e.port)}${chalk.blue(' by')} ${chalk.whiteBright('npm run dev')}`
 
         console.log(beauty)
 
