@@ -13,7 +13,12 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    port: '11447',
+    port: 11447,
+    strictPort: true // 若端口已被占用则会直接退出
+  },
+  preview: {
+    host: '0.0.0.0', // 指定服务器应该监听哪个 IP 地址
+    port: 9527, // 固定端口
     strictPort: true // 若端口已被占用则会直接退出
   },
   define: {
