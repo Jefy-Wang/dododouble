@@ -10,6 +10,17 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import viteCompression from 'vite-plugin-compression'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
+const htmlPlugin = process.env.VITEST ? [] : createHtmlPlugin({
+  minify: true,
+  inject: {
+    data: {
+      title: '肚肚兔', // 网站名称
+      buildTime: GIT.buildTime, // 打包时间
+      commitMessage: GIT.commitMessage // 提交信息
+    }
+  }
+}) // 处理 HTML 文件
+
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
@@ -61,16 +72,7 @@ export default defineConfig({
       algorithm: 'gzip',
       ext: '.gz'
     }), // gzip 静态资源压缩
-    createHtmlPlugin({
-      minify: true,
-      inject: {
-        data: {
-          title: '肚肚兔', // 网站名称
-          buildTime: GIT.buildTime, // 打包时间
-          commitMessage: GIT.commitMessage // 提交信息
-        }
-      }
-    }), // 处理 HTML 文件
+    ...htmlPlugin, // HTML 文件插件
     legacyPlugin({
       targets: ['chrome 52'], // 需要兼容的目标列表，可以设置多个
       additionalLegacyPolyfills: ['regenerator-runtime/runtime'] // 面向 IE11 时需要此插件

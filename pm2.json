@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "dododouble",
+      "script": "node_modules/vite/bin/vite.js",
+      "args" : "preview"
+    }
+  ]
+}
