@@ -7,5 +7,9 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  env: {
+    node: true, // ESLint - 'process' is not defined
+    commonjs: true // ESLint - 'process' is not defined
   }
 }
