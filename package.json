@@ -30,7 +30,6 @@
     "vite": "^5.3.1",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-html": "^3.2.2",
-    "vite-plugin-vue-devtools": "^7.3.1",
-    "vite-plugin-zip-pack": "^1.2.4"
+    "vite-plugin-vue-devtools": "^7.3.1"
   }
 }

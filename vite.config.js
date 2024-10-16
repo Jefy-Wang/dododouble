@@ -3,7 +3,6 @@ import { fileURLToPath, URL } from 'node:url'
 
 import GIT from './build/git'
 import vue from '@vitejs/plugin-vue'
-import zipPack from 'vite-plugin-zip-pack'
 import closePort from './build/close-port.js'
 import legacyPlugin from '@vitejs/plugin-legacy'
 import vueDevTools from 'vite-plugin-vue-devtools'
@@ -62,9 +61,6 @@ export default defineConfig({
     vue(),
     closePort(),
     vueDevTools(),
-    zipPack({
-      outDir: './' // 将 dist 目录，压缩为 dist.zip（默认在 dist-zip 目录下，改为存放在项目根目录下）
-    }), // https://github.com/7th-Cyborg/vite-plugin-zip-pack#readme
     viteCompression({
       verbose: true,
       disable: false,
