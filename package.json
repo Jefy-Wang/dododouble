@@ -25,9 +25,9 @@
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
     "kill-port": "^2.0.1",
-    "sass": "^1.77.8",
+    "sass": "^1.81.0",
     "sass-loader": "^16.0.1",
-    "vite": "^5.3.1",
+    "vite": "^5.4.11",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-vue-devtools": "^7.3.1"
