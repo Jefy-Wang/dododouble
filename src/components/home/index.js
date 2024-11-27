@@ -13,6 +13,7 @@ import { loadBirds } from './components/birds/birds.js'
 
 // These variables are module-scoped: we cannot access them from outside the module
 let loop, scene, camera, renderer, controls
+
 export default class Home {
   constructor(el) {
     scene = createScene() // 创建场景
@@ -51,5 +52,9 @@ export default class Home {
 
   stop() {
     loop.stop()
+  }
+
+  destroy() {
+    this.stop()
   }
 }
