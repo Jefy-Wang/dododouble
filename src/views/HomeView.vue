@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import HomeThree from '@/components/home/index.js'
 
 let homeThree = null
-const threeEl = ref(null)
+const threeEl = ref()
 
 async function init() {
   homeThree = new HomeThree(threeEl.value)
