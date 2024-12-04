@@ -1,32 +1,22 @@
 <script setup>
-// 顶层导入 import
+import { ref, onMounted, onUnmounted } from 'vue'
 import HomeThree from '@/components/home/index.js'
-import { setPageLoading } from '@/shared/index.js'
-import { onMounted, onUnmounted, ref } from 'vue'
 
-// 普通变量 variable
 let homeThree = null
+const threeEl = ref()
 
-// 状态 State
-const threeEl = ref(null)
-
-// 行为 Action
-const init = async () => {
+async function init() {
   homeThree = new HomeThree(threeEl.value)
 
   await homeThree.init()
 
   homeThree.start()
-
-  setPageLoading(false)
 }
 
-// 生命周期 LifeCycle
 onMounted(() => {
   init()
 })
 
-// 生命周期 LifeCycle
 onUnmounted(() => {
   homeThree.destroy()
 })

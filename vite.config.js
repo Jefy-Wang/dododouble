@@ -78,5 +78,12 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        silenceDeprecations: ['legacy-js-api'] // The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0
+      }
+    }
   }
 })
