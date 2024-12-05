@@ -1,13 +1,13 @@
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { setupModel } from './setupModel.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 export async function loadBirds() {
   const loader = new GLTFLoader()
 
   const [parrotData, flamingoData, storkData] = await Promise.all([
-    loader.loadAsync('/models/Parrot.glb'), // 鹦鹉
-    loader.loadAsync('/models/Flamingo.glb'), // 火烈鸟
-    loader.loadAsync('/models/Stork.glb') // 鹳
+    loader.loadAsync(`${import.meta.env.BASE_URL}models/Parrot.glb`), // 鹦鹉
+    loader.loadAsync(`${import.meta.env.BASE_URL}models/Flamingo.glb`), // 火烈鸟
+    loader.loadAsync(`${import.meta.env.BASE_URL}models/Stork.glb`) // 鹳
   ]) // 同时加载三个模型文件
 
   const parrot = setupModel(parrotData) // 从模型数据中，提取网格：鹦鹉
