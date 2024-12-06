@@ -1,20 +1,17 @@
-import {
-  createAxesHelper,
-  createGridHelper
-} from './components/helpers.js'
-import Loop from './systems/Loop.js'
-import Resizer from './systems/Resizer.js'
-import { createScene } from './components/scene.js'
-import { createCamera } from './components/camera.js'
-import { createLights } from './components/lights.js'
-import { createRenderer } from './systems/renderer.js'
-import { createControls } from './systems/controls.js'
-import { loadBirds } from './components/birds/birds.js'
+import Loop from '@/components/three/painting/FlyingBird/systems/Loop.js'
+import Resizer from '@/components/three/painting/FlyingBird/systems/Resizer.js'
+import { createScene } from '@/components/three/painting/FlyingBird/components/scene.js'
+import { createCamera } from '@/components/three/painting/FlyingBird/components/camera.js'
+import { createLights } from '@/components/three/painting/FlyingBird/components/lights.js'
+import { createRenderer } from '@/components/three/painting/FlyingBird/systems/renderer.js'
+import { createControls } from '@/components/three/painting/FlyingBird/systems/controls.js'
+import { loadBirds } from '@/components/three/painting/FlyingBird/components/birds/birds.js'
+import { createAxesHelper, createGridHelper } from '@/components/three/painting/FlyingBird/components/helpers.js'
 
 // These variables are module-scoped: we cannot access them from outside the module
 let loop, scene, camera, renderer, controls
 
-export default class Home {
+export default class FlyingBird {
   constructor(el) {
     scene = createScene() // 创建场景
     camera = createCamera() // 创建相机

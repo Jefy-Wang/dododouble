@@ -1,16 +1,16 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import HomeThree from '@/components/home/index.js'
+import FlyingBird from '@/components/three/painting/FlyingBird/index.js'
 
-let homeThree = null
+let flyingBird = null
 const threeEl = ref()
 
 async function init() {
-  homeThree = new HomeThree(threeEl.value)
+  flyingBird = new FlyingBird(threeEl.value)
 
-  await homeThree.init()
+  await flyingBird.init()
 
-  homeThree.start()
+  flyingBird.start()
 }
 
 onMounted(() => {
@@ -18,16 +18,16 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  homeThree.destroy()
+  flyingBird.destroy()
 })
 </script>
 
 <template>
-  <div ref="threeEl" class="home-three-container"></div>
+  <div ref="threeEl" class="paint-three-root"></div>
 </template>
 
 <style scoped>
-.home-three-container {
+.paint-three-root {
   height: 100vh;
   width: 100%;
 }
