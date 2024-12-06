@@ -1,29 +1,57 @@
+import debounce from 'lodash/debounce'
 import { cbCommonRun } from '../../../shared/index.js'
+import ResizeObserver from 'resize-observer-polyfill'
 
 let myCamera, myRenderer
-
-const myResize = (container) => {
-  myCamera.aspect = container.clientWidth / container.clientHeight // 全屏情况下：设置观察范围长宽比aspect为窗口宽高比
-  myCamera.updateProjectionMatrix() // 投影矩阵
-
-  myRenderer.setSize(container.clientWidth, container.clientHeight) // 重置渲染器输出画布 canvas 尺寸
-  myRenderer.setPixelRatio(window.devicePixelRatio) // set the pixel ratio (for mobile devices)
-}
 
 export default class Resizer {
   constructor({ el, camera, renderer } = {}) {
     myCamera = camera
     myRenderer = renderer
 
-    myResize(el)
-
-    window.addEventListener('resize', () => {
-      myResize(el)
-
-      cbCommonRun(this.onresize)
-    })
+    this.observeEl = el
+    this.resizeDelay = 0
+    this.bindResizeObserver()
   }
 
-  // 自定义行为
-  onresize() {}
+  // 响应尺寸变化
+  onresize(width, height) {
+    if (!width || !height) return
+
+    myCamera.aspect = width / height // 全屏情况下：设置观察范围长宽比aspect为窗口宽高比
+    myCamera.updateProjectionMatrix() // 投影矩阵
+
+    myRenderer.setSize(width, height) // 重置渲染器输出画布 canvas 尺寸
+    myRenderer.setPixelRatio(window.devicePixelRatio) // set the pixel ratio (for mobile devices)
+  }
+
+  // 监听元素尺寸
+  bindResizeObserver() {
+    const onSizeChange = debounce(({ width, height } = {}) => {
+      if (!width || !height) return
+
+      cbCommonRun(this.onresize, width, height)
+    }, this.resizeDelay) // 响应尺寸变化
+
+    this.resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const { width, height } = entry.contentRect
+
+        onSizeChange({ width, height })
+      }
+    })
+
+    this.resizeObserver.observe(this.observeEl)
+  }
+
+  // 取消监听元素
+  cleanResizeObserver() {
+    this.resizeObserver.unobserve(this.observeEl)
+    this.resizeObserver = null
+  }
+
+  // 取消元素监听
+  destroy() {
+    this.cleanResizeObserver()
+  }
 }

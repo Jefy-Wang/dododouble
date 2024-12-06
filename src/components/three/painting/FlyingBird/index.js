@@ -25,7 +25,9 @@ export default class FlyingBird {
 
     loop.updatables.push(controls)
     scene.add(light.ambientLight, light.mainLight) // 向场景中添加光照
-    new Resizer({ el, camera, renderer })
+
+    this.resizer = new Resizer({ el, camera, renderer }) // 监听容器尺寸并响应
+
     if (process.env.NODE_ENV === 'development') scene.add(createAxesHelper(), createGridHelper()) // 开发模式下，添加网格及坐标系
   }
 
@@ -53,5 +55,6 @@ export default class FlyingBird {
 
   destroy() {
     this.stop()
+    this.resizer.destroy()
   }
 }
