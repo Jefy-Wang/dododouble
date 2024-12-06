@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { setPageLoading } from '@/shared/index.js'
 import FlyingBird from '@/components/three/painting/FlyingBird/index.js'
 
 let flyingBird = null
@@ -11,6 +12,8 @@ async function init() {
   await flyingBird.init()
 
   flyingBird.start()
+
+  setPageLoading(false)
 }
 
 onMounted(() => {
