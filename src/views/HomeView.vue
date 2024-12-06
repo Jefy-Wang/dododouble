@@ -4,10 +4,10 @@ import { setPageLoading } from '@/shared/index.js'
 import FlyingBird from '@/components/three/painting/FlyingBird/index.js'
 
 let flyingBird = null
-const threeEl = ref()
+const paintEl = ref()
 
 async function init() {
-  flyingBird = new FlyingBird(threeEl.value)
+  flyingBird = new FlyingBird(paintEl.value)
 
   await flyingBird.init()
 
@@ -26,7 +26,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="threeEl" class="paint-three-root"></div>
+  <div ref="paintEl" class="paint-three-root"></div>
 </template>
 
 <style scoped>
