@@ -1,4 +1,4 @@
-import { fnCommonRun } from '@/shared/index.js'
+import { cbCommonRun } from '../../../shared/index.js'
 
 let myCamera, myRenderer
 
@@ -20,7 +20,7 @@ export default class Resizer {
     window.addEventListener('resize', () => {
       myResize(el)
 
-      fnCommonRun(this.onresize)
+      cbCommonRun(this.onresize)
     })
   }
 
