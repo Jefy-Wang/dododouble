@@ -41,10 +41,6 @@ export default class FlyingBird {
     scene.add(parrot, flamingo, stork)
   }
 
-  render() {
-    renderer.render(scene, camera) // draw a single frame
-  }
-
   start() {
     loop.start()
   }
@@ -56,5 +52,9 @@ export default class FlyingBird {
   destroy() {
     this.stop()
     this.resizer.destroy()
+    renderer.dispose()
+    controls.dispose()
+    camera.clear()
+    scene.clear()
   }
 }
