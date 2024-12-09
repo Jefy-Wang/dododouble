@@ -1,5 +1,5 @@
-import GUI from 'lil-gui'
 import './index.css'
+import GUI from 'lil-gui'
 
 // 创建调试用的图形界面
 export function createLilGui(camera, el) {
