@@ -6,6 +6,6 @@ export const cbCommonRun = (cb = () => {}, ...args) => {
 }
 
 // 设置主题
-export function setThreeTheme(scene, isDarkTheme = false) {
-  scene.background = new Color(!isDarkTheme ? 'skyblue' : '#121212')
+export function setThreeTheme(scene, { isDark = false } = {}) {
+  scene.background = new Color(!isDark ? 'skyblue' : '#121212') // Three.js 中的颜色，约定通过 new Color 创建
 }

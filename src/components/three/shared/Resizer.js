@@ -2,27 +2,17 @@ import debounce from 'lodash/debounce'
 import { cbCommonRun } from './index.js'
 import ResizeObserver from 'resize-observer-polyfill'
 
-let myCamera, myRenderer
-
+// 容器尺寸监听器
 export default class Resizer {
-  constructor({ el, camera, renderer } = {}) {
-    myCamera = camera
-    myRenderer = renderer
+  #el; #camera; #renderer;
 
-    this.observeEl = el
+  constructor(el, camera, renderer) {
+    this.#el = el
+    this.#camera = camera
+    this.#renderer = renderer
+
     this.resizeDelay = 0
     this.bindResizeObserver()
-  }
-
-  // 响应尺寸变化
-  onresize(width, height) {
-    if (!width || !height) return
-
-    myCamera.aspect = width / height // 全屏情况下：设置观察范围长宽比aspect为窗口宽高比
-    myCamera.updateProjectionMatrix() // 投影矩阵
-
-    myRenderer.setSize(width, height) // 重置渲染器输出画布 canvas 尺寸
-    myRenderer.setPixelRatio(window.devicePixelRatio) // set the pixel ratio (for mobile devices)
   }
 
   // 监听元素尺寸
@@ -30,7 +20,7 @@ export default class Resizer {
     const onSizeChange = debounce(({ width, height } = {}) => {
       if (!width || !height) return
 
-      cbCommonRun(this.onresize, width, height)
+      cbCommonRun(this.#resize, { width, height, camera: this.#camera, renderer: this.#renderer })
     }, this.resizeDelay) // 响应尺寸变化
 
     this.resizeObserver = new ResizeObserver((entries) => {
@@ -41,17 +31,28 @@ export default class Resizer {
       }
     })
 
-    this.resizeObserver.observe(this.observeEl)
+    this.resizeObserver.observe(this.#el)
   }
 
   // 取消监听元素
   cleanResizeObserver() {
-    this.resizeObserver.unobserve(this.observeEl)
+    this.resizeObserver.unobserve(this.#el)
     this.resizeObserver = null
   }
 
   // 取消元素监听
   destroy() {
     this.cleanResizeObserver()
+  }
+
+  // [ES2022 引入私有字段#] 响应尺寸变化
+  #resize({ width, height, camera, renderer } = {}) {
+    if (!width || !height || !camera || !renderer) return
+
+    camera.aspect = width / height // 全屏情况下：设置观察范围长宽比aspect为窗口宽高比
+    camera.updateProjectionMatrix() // 投影矩阵
+
+    renderer.setSize(width, height) // 重置渲染器输出画布 canvas 尺寸
+    renderer.setPixelRatio(window.devicePixelRatio) // set the pixel ratio (for mobile devices)
   }
 }

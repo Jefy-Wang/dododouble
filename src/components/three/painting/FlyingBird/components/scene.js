@@ -1,10 +1,11 @@
 /** 场景组件 */
-import { Color, Scene } from 'three'
+import { Scene } from 'three'
+import { setThreeTheme } from '../../../shared/index.js'
 
-export function createScene() {
+export function createScene({ isDark } = {}) {
   const scene = new Scene()
 
-  scene.background = new Color('skyblue')
+  setThreeTheme(scene, isDark)
 
   return scene
 }

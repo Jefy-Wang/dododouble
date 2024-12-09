@@ -1,8 +1,9 @@
 import { Clock } from 'three'
 
-const clock = new Clock()
-
+// 处理所有的循环逻辑和动画系统
 export default class Loop {
+  #clock =  new Clock() // 时钟器
+
   constructor(camera, scene, renderer) {
     this.scene = scene
     this.camera = camera
@@ -23,7 +24,7 @@ export default class Loop {
   }
 
   tick() {
-    const delta = clock.getDelta() // only call the getDelta function once per frame!
+    const delta = this.#clock.getDelta() // only call the getDelta function once per frame!
 
     for (const object of this.updatables) {
       if (typeof object.tick === 'function') object.tick(delta)
