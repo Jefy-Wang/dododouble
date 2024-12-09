@@ -33,5 +33,6 @@ onUnmounted(() => {
 .paint-three-root {
   height: 100vh;
   width: 100%;
+  position: relative;
 }
 </style>

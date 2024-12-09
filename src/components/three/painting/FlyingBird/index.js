@@ -1,12 +1,12 @@
-import Loop from './systems/Loop.js'
-import Resizer from './systems/Resizer.js'
+import Loop from '../../shared/Loop.js'
+import Resizer from '../../shared/Resizer.js'
 import { createScene } from './components/scene.js'
 import { createCamera } from './components/camera.js'
 import { createLights } from './components/lights.js'
 import { createRenderer } from './systems/renderer.js'
 import { createControls } from './systems/controls.js'
 import { loadBirds } from './components/birds/birds.js'
-import { createAxesHelper, createGridHelper } from './components/helpers.js'
+import { createAxesHelper, createGridHelper } from '../../devtools/helpers.js'
 
 // These variables are module-scoped: we cannot access them from outside the module
 let loop, scene, camera, renderer, controls

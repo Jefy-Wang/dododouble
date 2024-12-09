@@ -1,5 +1,5 @@
 import debounce from 'lodash/debounce'
-import { cbCommonRun } from '../../../shared/index.js'
+import { cbCommonRun } from './index.js'
 import ResizeObserver from 'resize-observer-polyfill'
 
 let myCamera, myRenderer
