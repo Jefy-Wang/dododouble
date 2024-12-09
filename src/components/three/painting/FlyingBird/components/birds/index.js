@@ -20,8 +20,8 @@ export async function loadBirds() {
   stork.position.set(0, -2.5, -10)
 
   return {
+    stork,
     parrot,
-    flamingo,
-    stork
+    flamingo
   }
 }
