@@ -1,19 +1,24 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { setPageLoading } from '@/shared/index.js'
+import { isWebGL2Available } from '@/components/three/shared/index.js'
 import FlyingBird from '@/components/three/painting/FlyingBird/index.js'
 
 let flyingBird = null
 const paintEl = ref()
 
 async function init() {
-  flyingBird = new FlyingBird(paintEl.value)
+  try {
+    await isWebGL2Available(paintEl.value)
 
-  await flyingBird.init()
+    flyingBird = new FlyingBird(paintEl.value)
 
-  flyingBird.start()
+    await flyingBird.init()
 
-  setPageLoading(false)
+    flyingBird.start()
+  } finally {
+    setPageLoading(false)
+  }
 }
 
 onMounted(() => {
