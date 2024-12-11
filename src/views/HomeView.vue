@@ -11,7 +11,7 @@ async function init() {
   try {
     await isWebGL2Available(paintEl.value)
 
-    flyingBird = new FlyingBird(paintEl.value)
+    flyingBird = new FlyingBird({ el: paintEl.value })
 
     await flyingBird.init()
 

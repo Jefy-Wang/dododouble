@@ -1,8 +1,10 @@
 import Loop from '../../shared/Loop.js'
 import Resizer from '../../shared/Resizer.js'
+import isPlainObject from 'lodash/isPlainObject'
 import { createScene } from './components/scene.js'
 import { createCamera } from './components/camera.js'
 import { createLights } from './components/lights.js'
+import { isElAvailable } from '../../shared/index.js'
 import { createRenderer } from './systems/renderer.js'
 import { createControls } from './systems/controls.js'
 import { loadBirds } from './components/birds/index.js'
@@ -11,12 +13,16 @@ import { createLilGui } from '../../devtools/lil-gui/index.js'
 import { createAxesHelper, createGridHelper } from '../../devtools/helpers.js'
 
 export default class FlyingBird {
-  #loop; #resizer; // 通用生产工具库
+  #loop; #option; #resizer; // 通用型工具变量
   #gui; #stats; #gridHelper; #axesHelper; // 辅助开发工具库
   #el; #scene; #camera; #renderer; #controls; // 图形学必备元素
 
-  constructor(el, option = {}) {
-    this.#el = el // 画作根节点
+  constructor(option = {}) {
+    this.#option = option // 函数入参
+
+    if (!this.#isOptionAvailable(this.#option)) return // 校验入参
+
+    this.#el = option.el // 画作根节点
     this.#scene = createScene(option) // 创建场景
     this.#camera = createCamera(option) // 创建相机
     this.#renderer = createRenderer(option) // 创建渲染器
@@ -36,6 +42,8 @@ export default class FlyingBird {
 
   // 画作初始逻辑
   async init() {
+    if (!this.#isOptionAvailable(this.#option)) return
+
     const { parrot, flamingo, stork } = await loadBirds()
 
     this.#controls.target.copy(parrot.position) // 将相机对准鹦鹉（默认对准位置，是场景的中心）
@@ -47,16 +55,22 @@ export default class FlyingBird {
 
   // 动画循环开始
   start() {
-    this.#loop.start()
+    if (!this.#isOptionAvailable(this.#option)) return
+
+    if (this.#loop) this.#loop.start()
   }
 
   // 动画循环结束
   stop() {
-    this.#loop.stop()
+    if (!this.#isOptionAvailable(this.#option)) return
+
+    if (this.#loop) this.#loop.stop()
   }
 
   // 画作销毁逻辑
   destroy() {
+    if (!this.#isOptionAvailable(this.#option)) return
+
     this.stop()
     this.#renderer.dispose()
     this.#controls.dispose()
@@ -64,6 +78,13 @@ export default class FlyingBird {
     this.#scene.clear()
     this.#resizer.destroy()
     this.#destroyDevTools()
+  }
+
+  // [ES2022 引入私有字段#] 校验构造函数入参是否可用
+  #isOptionAvailable(option = {}) {
+    if (!isPlainObject(option)) return false
+
+    return isElAvailable(option.el)
   }
 
   // [ES2022 引入私有字段#] 开发工具的使用
