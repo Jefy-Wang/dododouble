@@ -26,7 +26,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (flyingBird) flyingBird.destroy()
+  if (flyingBird) flyingBird.dispose()
 })
 </script>
 

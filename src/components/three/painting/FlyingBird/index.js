@@ -68,7 +68,7 @@ export default class FlyingBird {
   }
 
   // 画作销毁逻辑
-  destroy() {
+  dispose() {
     if (!this.#isOptionAvailable(this.#option)) return
 
     this.stop()
@@ -76,7 +76,7 @@ export default class FlyingBird {
     this.#controls.dispose()
     this.#camera.clear()
     this.#scene.clear()
-    this.#resizer.destroy()
+    this.#resizer.dispose()
     this.#destroyDevTools()
   }
 

@@ -41,7 +41,7 @@ export default class Resizer {
   }
 
   // 取消元素监听
-  destroy() {
+  dispose() {
     this.cleanResizeObserver()
   }
 
