@@ -13,9 +13,7 @@ function createMaterial() {
   const textureLoader = new TextureLoader()
 
   // load a textures
-  // Files in the public directory are served at the root path.                                                                                                                                                        09:07:31
-  // Instead of /public/textures/uv-test-bw.png, use /textures/uv-test-bw.png.
-  const texture = textureLoader.load('/textures/uv-test-bw.png')
+  const texture = textureLoader.load(`${import.meta.env.BASE_URL}textures/uv-test-bw.png`)
 
   return new MeshStandardMaterial({
     map: texture // 意指 colorMap
