@@ -1,11 +1,11 @@
 import { AnimationMixer } from 'three'
 
 export function setupModel(data) {
+  const clip = data.animations[0] // clip：电影片段，这里指可重复的动画
   const model = data.scene.children[0] // 网格对象
-  const clip = data.animations[0]
-
   const mixer = new AnimationMixer(model) // 混合器：将静态对象转换为动画对象
-  const action = mixer.clipAction(clip)
+  const action = mixer.clipAction(clip) // 控制动画的播放、暂停、停止
+
   action.play()
 
   model.tick = (delta) => mixer.update(delta)
