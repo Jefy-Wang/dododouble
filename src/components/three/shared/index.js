@@ -1,4 +1,6 @@
 import { Cache, Color } from 'three'
+import { isLooseFalse } from '@/shared/index.js'
+import isPlainObject from 'lodash/isPlainObject'
 import WebGL from 'three/examples/jsm/capabilities/WebGL.js'
 
 // 执行回调函数的通用方法
@@ -16,6 +18,18 @@ export function setThreeTheme(scene, { isDark = false } = {}) {
 // 判断根节点是否可用
 export function isElAvailable(el) {
   return el instanceof HTMLElement
+}
+
+// 判断入参是否存在假值
+export function existFalsyArgs(...args) {
+  return args.some(item => isLooseFalse(item))
+}
+
+// 判断对象 key 是否存在假值
+export function existFalsyKey(object = {}) {
+  if (!isPlainObject(object)) return true
+
+  return existFalsyArgs(Object.keys(object).map(key => object[key]))
 }
 
 // 兼容性检查：浏览器是否支持 WebGL

@@ -4,12 +4,12 @@ import isPlainObject from 'lodash/isPlainObject'
 import { createScene } from './components/scene.js'
 import { createCamera } from './components/camera.js'
 import { createLights } from './components/lights.js'
-import { isElAvailable } from '../../shared/index.js'
 import { createRenderer } from './systems/renderer.js'
 import { createControls } from './systems/controls.js'
 import { loadBirds } from './components/birds/index.js'
 import { createStats } from '../../devtools/stats.js'
 import { createLilGui } from '../../devtools/lil-gui/index.js'
+import { existFalsyKey, isElAvailable } from '../../shared/index.js'
 import { createAxesHelper, createGridHelper } from '../../devtools/helpers.js'
 
 export default class FlyingBird {
@@ -44,11 +44,15 @@ export default class FlyingBird {
   init() {
     if (!this.#isOptionAvailable(this.#option)) return
 
-    loadBirds({
+    const loadOption = {
       loop: this.#loop,
       scene: this.#scene,
       controls: this.#controls
-    }) // 加载模型文件
+    }
+
+    if (existFalsyKey(loadOption)) return
+
+    loadBirds(loadOption) // 加载模型文件
   }
 
   // 动画循环开始

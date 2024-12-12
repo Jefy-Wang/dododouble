@@ -3,6 +3,16 @@ export function fnCommonRun(fn, ...args) {
   if (typeof fn === 'function') fn(...args)
 }
 
+// 是否为宽松假值
+export const isLooseFalse = (v) => {
+  return !!(!v && v !== 0)
+}
+
+// 是否为宽松真值
+export const isLooseTruth = (v) => {
+  return !!(v || v === 0)
+}
+
 // 设置页面加载
 export function setPageLoading(loading = true, text = '3D 引擎计算中...') {
   const Timeout = 200
