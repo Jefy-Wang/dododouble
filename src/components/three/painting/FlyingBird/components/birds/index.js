@@ -44,9 +44,9 @@ export function loadBirds(loadOption = {}) {
 
   Promise
     .all([
-      loader.loadAsync(`${import.meta.env.BASE_URL}models/flyingBird/Stork.glb`).then(gltf => setStork(gltf, loadOption)), // 鹳
-      loader.loadAsync(`${import.meta.env.BASE_URL}models/flyingBird/Parrot.glb`).then((gltf) => setParrot(gltf, loadOption)), // 鹦鹉
-      loader.loadAsync(`${import.meta.env.BASE_URL}models/flyingBird/Flamingo.glb`).then(gltf => setFlamingo(gltf, loadOption)) // 火烈鸟
+      loader.loadAsync(`${import.meta.env.BASE_URL}models/Stork.glb`).then(gltf => setStork(gltf, loadOption)), // 鹳
+      loader.loadAsync(`${import.meta.env.BASE_URL}models/Parrot.glb`).then((gltf) => setParrot(gltf, loadOption)), // 鹦鹉
+      loader.loadAsync(`${import.meta.env.BASE_URL}models/Flamingo.glb`).then(gltf => setFlamingo(gltf, loadOption)) // 火烈鸟
     ])
     .then(() => {}) // 同时加载三个模型文件（由于浏览器限制，可能会有 1ms 的偏差，但大体是同时触发的）
     .catch(() => {})
