@@ -13,7 +13,7 @@ async function init() {
 
     flyingBird = new FlyingBird({ el: paintEl.value })
 
-    await flyingBird.init()
+    flyingBird.init()
 
     flyingBird.start()
   } finally {

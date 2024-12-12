@@ -41,16 +41,14 @@ export default class FlyingBird {
   }
 
   // 画作初始逻辑
-  async init() {
+  init() {
     if (!this.#isOptionAvailable(this.#option)) return
 
-    const { parrot, flamingo, stork } = await loadBirds()
-
-    this.#controls.target.copy(parrot.position) // 将相机对准鹦鹉（默认对准位置，是场景的中心）
-
-    this.#loop.updatables.push(parrot, flamingo, stork)
-
-    this.#scene.add(parrot, flamingo, stork)
+    loadBirds({
+      loop: this.#loop,
+      scene: this.#scene,
+      controls: this.#controls
+    }) // 加载模型文件
   }
 
   // 动画循环开始
