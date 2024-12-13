@@ -1,5 +1,6 @@
 import { setupModel } from './setupModel.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { existFalsyKey } from '@/components/three/shared/index.js'
 
 function setParrot(parrotModel, { controls, loop, scene }) {
   const parrot = setupModel(parrotModel) // 从模型数据中，提取网格：鹦鹉
@@ -40,6 +41,8 @@ function setStork(storkModel, { loop, scene }) {
 }
 
 export function loadBirds(loadOption = {}) {
+  if (existFalsyKey(loadOption)) return
+
   const loader = new GLTFLoader()
 
   Promise

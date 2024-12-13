@@ -4,12 +4,12 @@ import isPlainObject from 'lodash/isPlainObject'
 import { createScene } from './components/scene.js'
 import { createCamera } from './components/camera.js'
 import { createLights } from './components/lights.js'
+import { isElAvailable } from '../../shared/index.js'
 import { createRenderer } from './systems/renderer.js'
 import { createControls } from './systems/controls.js'
 import { loadBirds } from './components/birds/index.js'
 import { createStats } from '../../devtools/stats.js'
 import { createLilGui } from '../../devtools/lil-gui/index.js'
-import { existFalsyKey, isElAvailable } from '../../shared/index.js'
 import { createAxesHelper, createGridHelper } from '../../devtools/helpers.js'
 
 export default class FlyingBird {
@@ -17,15 +17,15 @@ export default class FlyingBird {
   #gui; #stats; #gridHelper; #axesHelper; // 辅助开发工具库
   #el; #scene; #camera; #renderer; #controls; // 图形学必备元素
 
-  constructor(option = {}) {
-    this.#option = option // 函数入参
+  constructor(props = {}) {
+    this.#option = props // 函数入参
 
     if (!this.#isOptionAvailable(this.#option)) return // 校验入参
 
-    this.#el = option.el // 画作根节点
-    this.#scene = createScene(option) // 创建场景
-    this.#camera = createCamera(option) // 创建相机
-    this.#renderer = createRenderer(option) // 创建渲染器
+    this.#el = props.el // 画作根节点
+    this.#scene = createScene(props) // 创建场景
+    this.#camera = createCamera(props) // 创建相机
+    this.#renderer = createRenderer(props) // 创建渲染器
 
     this.#loop = new Loop(this.#camera, this.#scene, this.#renderer) // 处理动画循环
     this.#controls = createControls(this.#camera, this.#renderer.domElement) // 相机轨道控制
@@ -49,8 +49,6 @@ export default class FlyingBird {
       scene: this.#scene,
       controls: this.#controls
     }
-
-    if (existFalsyKey(loadOption)) return
 
     loadBirds(loadOption) // 加载模型文件
   }
@@ -95,8 +93,8 @@ export default class FlyingBird {
 
     /** 开发模式下，添加性能监控面板 */
     this.#stats = createStats()
-    this.#loop.updatables.push(this.#stats)
     this.#el.append(this.#stats.dom)
+    this.#loop.updatables.push(this.#stats)
 
     /** 开发模式下，创建调试用的图形界面 */
     this.#gui = createLilGui(this.#camera, this.#el)
