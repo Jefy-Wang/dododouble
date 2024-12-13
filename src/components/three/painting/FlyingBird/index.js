@@ -13,14 +13,14 @@ import { createLilGui } from '../../devtools/lil-gui/index.js'
 import { createAxesHelper, createGridHelper } from '../../devtools/helpers.js'
 
 export default class FlyingBird {
-  #loop; #option; #resizer; // 通用型工具变量
+  #loop; #props; #resizer; // 通用型工具变量
   #gui; #stats; #gridHelper; #axesHelper; // 辅助开发工具库
   #el; #scene; #camera; #renderer; #controls; // 图形学必备元素
 
   constructor(props = {}) {
-    this.#option = props // 函数入参
+    this.#props = props // 函数入参
 
-    if (!this.#isOptionAvailable(this.#option)) return // 校验入参
+    if (!this.#isPropsAvailable(this.#props)) return // 校验入参
 
     this.#el = props.el // 画作根节点
     this.#scene = createScene(props) // 创建场景
@@ -42,7 +42,7 @@ export default class FlyingBird {
 
   // 画作初始逻辑
   init() {
-    if (!this.#isOptionAvailable(this.#option)) return
+    if (!this.#isPropsAvailable(this.#props)) return
 
     const loadOption = {
       loop: this.#loop,
@@ -55,21 +55,21 @@ export default class FlyingBird {
 
   // 动画循环开始
   start() {
-    if (!this.#isOptionAvailable(this.#option)) return
+    if (!this.#isPropsAvailable(this.#props)) return
 
     if (this.#loop) this.#loop.start()
   }
 
   // 动画循环结束
   stop() {
-    if (!this.#isOptionAvailable(this.#option)) return
+    if (!this.#isPropsAvailable(this.#props)) return
 
     if (this.#loop) this.#loop.stop()
   }
 
   // 画作销毁逻辑
   dispose() {
-    if (!this.#isOptionAvailable(this.#option)) return
+    if (!this.#isPropsAvailable(this.#props)) return
 
     this.stop()
     this.#renderer.dispose()
@@ -81,10 +81,10 @@ export default class FlyingBird {
   }
 
   // [ES2022 引入私有字段#] 校验构造函数入参是否可用
-  #isOptionAvailable(option = {}) {
-    if (!isPlainObject(option)) return false
+  #isPropsAvailable(props = {}) {
+    if (!isPlainObject(props)) return false
 
-    return isElAvailable(option.el)
+    return isElAvailable(props.el)
   }
 
   // [ES2022 引入私有字段#] 开发工具的使用
