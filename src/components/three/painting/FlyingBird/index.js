@@ -27,13 +27,13 @@ export default class FlyingBird {
     this.#camera = createCamera(props) // 创建相机
     this.#renderer = createRenderer(props) // 创建渲染器
 
+    this.#el.append(this.#renderer.domElement) // 将画布添加到容器中
+
     this.#loop = new Loop(this.#camera, this.#scene, this.#renderer) // 处理动画循环
     this.#controls = createControls(this.#camera, this.#renderer.domElement) // 相机轨道控制
     this.#loop.updatables.push(this.#controls) // 添加轨道动画
 
     const light = createLights() // 创建照明
-
-    this.#el.append(this.#renderer.domElement) // 将画布添加到容器中
     this.#scene.add(light.ambientLight, light.mainLight) // 向场景中添加光照
     this.#resizer = new Resizer(this.#el, this.#camera, this.#renderer) // 监听容器尺寸变化
 
