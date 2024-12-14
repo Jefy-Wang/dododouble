@@ -6,12 +6,13 @@ import FlyingBird from '@/components/three/painting/FlyingBird/index.js'
 
 let flyingBird = null
 const paintEl = ref()
+const canvasEl = ref()
 
 async function init() {
   try {
     await isWebGL2Available(paintEl.value)
 
-    flyingBird = new FlyingBird({ el: paintEl.value })
+    flyingBird = new FlyingBird({ el: paintEl.value, canvas: canvasEl.value })
 
     flyingBird.init()
 
@@ -31,13 +32,20 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="paintEl" class="paint-three-root"></div>
+  <div ref="paintEl" class="paint-three-root">
+    <canvas ref="canvasEl" class="paint-three-canvas"></canvas>
+  </div>
 </template>
 
 <style scoped>
 .paint-three-root {
-  height: 100vh;
   width: 100%;
+  height: 100vh;
   position: relative;
+
+  .paint-three-canvas {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
