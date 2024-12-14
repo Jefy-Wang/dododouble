@@ -42,6 +42,7 @@ onUnmounted(() => {
 .paint-three-root {
   width: 100%;
   height: 100vh;
+  overflow: hidden;
   position: relative;
 
   .paint-three-canvas {
