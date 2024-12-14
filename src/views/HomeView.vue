@@ -33,6 +33,7 @@ onUnmounted(() => {
 
 <template>
   <div ref="paintEl" class="paint-three-root">
+    <!-- 如果不指定宽高，canvas 的默认宽高为 300px * 150px -->
     <canvas ref="canvasEl" class="paint-three-canvas"></canvas>
   </div>
 </template>
