@@ -15,7 +15,7 @@ export const isLooseTruth = (v) => {
 
 // 设置页面加载
 export function setPageLoading(loading = true, text = '3D 引擎计算中...') {
-  const Timeout = 120
+  const Timeout = 240
   const LoadingRootEl = document.getElementById('page-loading__container')
   const LoadingTextEl = document.getElementById('page-loading__text')
 
