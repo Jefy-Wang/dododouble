@@ -11,7 +11,6 @@ export default class Resizer {
     this.#camera = camera
     this.#renderer = renderer
 
-    this.resizeDelay = 0
     this.#bindResizeObserver()
   }
 
@@ -26,7 +25,7 @@ export default class Resizer {
       if (!width || !height) return
 
       cbCommonRun(this.#resize, { width, height, camera: this.#camera, renderer: this.#renderer, instance: this })
-    }, this.resizeDelay) // 响应尺寸变化
+    }, 0) // 响应尺寸变化
 
     this.resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
