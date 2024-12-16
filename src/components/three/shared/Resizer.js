@@ -20,7 +20,7 @@ export default class Resizer {
     const onSizeChange = debounce(({ width, height } = {}) => {
       if (!width || !height) return
 
-      cbCommonRun(this.#resize, { width, height, camera: this.#camera, renderer: this.#renderer })
+      cbCommonRun(this.#resize, { width, height, camera: this.#camera, renderer: this.#renderer, instance: this })
     }, this.resizeDelay) // 响应尺寸变化
 
     this.resizeObserver = new ResizeObserver((entries) => {
@@ -46,13 +46,36 @@ export default class Resizer {
   }
 
   // [ES2022 引入私有字段#] 响应尺寸变化
-  #resize({ width, height, camera, renderer } = {}) {
-    if (!width || !height || !camera || !renderer) return
+  #resize({ width, height, camera, renderer, instance } = {}) {
+    if (!width || !height || !camera || !renderer || !instance) return
 
-    camera.aspect = width / height // 全屏情况下：设置观察范围长宽比aspect为窗口宽高比
-    camera.updateProjectionMatrix() // 投影矩阵
+    // 因为只有 canvas 的显示尺寸变化时，宽高比才变化！所以我们此时才设置摄像机的宽高比
+    // 以保证渲染的分辨率应该是和 canvas 的显示尺寸一样
+    if (instance.#resizeRendererToDisplaySize(renderer)) {
+      const canvas = renderer.domElement
 
-    renderer.setSize(width, height) // 重置渲染器输出画布 canvas 尺寸
-    renderer.setPixelRatio(window.devicePixelRatio) // set the pixel ratio (for mobile devices)
+      camera.aspect = canvas.clientWidth / canvas.clientHeight // 设置观察范围宽高比
+      camera.updateProjectionMatrix() //  更新摄像机投影矩阵
+    }
+  }
+
+  // [ES2022 引入私有字段#] 将渲染尺寸设为显示尺寸
+  #resizeRendererToDisplaySize(renderer) {
+    const canvas = renderer.domElement
+    const pixelRatio = window.devicePixelRatio
+    const width = Math.floor(canvas.clientWidth * pixelRatio) // canvas 显示尺寸
+    const height = Math.floor(canvas.clientHeight * pixelRatio) // canvas 显示尺寸
+    const needResize = canvas.width !== width || canvas.height !== height // 是否更新渲染尺寸
+
+    /**
+     * 检查渲染尺寸与显示尺寸，是否有差异
+     * 有差异时将渲染尺寸设为显示尺寸！
+     * 此方案胜于 renderer.setPixelRatio 方案
+     */
+    if (needResize) {
+      renderer.setSize(width, height, false)
+    }
+
+    return needResize
   }
 }
