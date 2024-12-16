@@ -62,9 +62,9 @@ export default class Resizer {
   // [ES2022 引入私有字段#] 将渲染尺寸设为显示尺寸
   #resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement
-    const pixelRatio = window.devicePixelRatio
-    const width = Math.floor(canvas.clientWidth * pixelRatio) // canvas 显示尺寸
-    const height = Math.floor(canvas.clientHeight * pixelRatio) // canvas 显示尺寸
+    const DPR = window.devicePixelRatio
+    const width = Math.floor(canvas.clientWidth * DPR) // 计算 canvas 渲染尺寸-宽
+    const height = Math.floor(canvas.clientHeight * DPR) // 计算 canvas 渲染尺寸-高
     const needResize = canvas.width !== width || canvas.height !== height // 是否更新渲染尺寸
 
     /**
