@@ -47,7 +47,7 @@ onUnmounted(() => {
   .paint-three-canvas {
     width: 100%;
     height: 100%;
-    display: block;
+    display: block; /** canvas 的 display 默认为 inline（行内元素的末尾会有空格）。通过设置 canvas 为块级元素，就能消除这个空格 */
   }
 }
 </style>
