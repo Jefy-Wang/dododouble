@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce'
-import { cbCommonRun } from './index.js'
 import ResizeObserver from 'resize-observer-polyfill'
+import { cbCommonRun, existFalsyKey } from './index.js'
 
 // 容器尺寸监听器
 export default class Resizer {
@@ -46,16 +46,16 @@ export default class Resizer {
   }
 
   // [ES2022 引入私有字段#] 响应尺寸变化
-  #resize({ width, height, camera, renderer, instance } = {}) {
-    if (!width || !height || !camera || !renderer || !instance) return
+  #resize(options = {}) {
+    if (existFalsyKey(options)) return
 
     // 因为只有 canvas 的显示尺寸变化时，宽高比才变化！所以我们此时才设置摄像机的宽高比
     // 以保证渲染的分辨率应该是和 canvas 的显示尺寸一样
-    if (instance.#resizeRendererToDisplaySize(renderer)) {
-      const canvas = renderer.domElement
+    if (options.instance.#resizeRendererToDisplaySize(options.renderer)) {
+      const canvas = options.renderer.domElement
 
-      camera.aspect = canvas.clientWidth / canvas.clientHeight // 设置观察范围宽高比
-      camera.updateProjectionMatrix() //  更新摄像机投影矩阵
+      options.camera.aspect = canvas.clientWidth / canvas.clientHeight // 设置观察范围宽高比
+      options.camera.updateProjectionMatrix() //  更新摄像机投影矩阵
     }
   }
 
