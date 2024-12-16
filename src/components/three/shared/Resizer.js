@@ -12,11 +12,16 @@ export default class Resizer {
     this.#renderer = renderer
 
     this.resizeDelay = 0
-    this.bindResizeObserver()
+    this.#bindResizeObserver()
   }
 
-  // 监听元素尺寸
-  bindResizeObserver() {
+  // 取消元素监听
+  dispose() {
+    this.#cleanResizeObserver()
+  }
+
+  // [ES2022 引入私有字段#] 监听元素尺寸
+  #bindResizeObserver() {
     const onSizeChange = debounce(({ width, height } = {}) => {
       if (!width || !height) return
 
@@ -34,15 +39,10 @@ export default class Resizer {
     this.resizeObserver.observe(this.#el)
   }
 
-  // 取消监听元素
-  cleanResizeObserver() {
+  // [ES2022 引入私有字段#] 取消监听元素
+  #cleanResizeObserver() {
     this.resizeObserver.unobserve(this.#el)
     this.resizeObserver = null
-  }
-
-  // 取消元素监听
-  dispose() {
-    this.cleanResizeObserver()
   }
 
   // [ES2022 引入私有字段#] 响应尺寸变化
