@@ -14,6 +14,10 @@ export function createLights() {
   return {
     mainLight,
     ambientLight,
+    dispose: () => {
+      mainLight.dispose()
+      ambientLight.dispose()
+    }
   }
 }
 

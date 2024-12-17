@@ -15,7 +15,7 @@ import { createAxesHelper, createGridHelper } from '../../devtools/helpers.js'
 export default class FlyingBird {
   #loop; #props; #resizer; // 通用型工具变量
   #gui; #stats; #gridHelper; #axesHelper; // 辅助开发工具库
-  #el; #scene; #camera; #renderer; #controls; // 图形学必备元素
+  #el; #scene; #camera; #renderer; #light; #controls; // 图形学必备元素
 
   constructor(props = {}) {
     this.#props = props // 函数入参
@@ -31,8 +31,8 @@ export default class FlyingBird {
     this.#controls = createControls(this.#camera, this.#renderer.domElement) // 相机轨道控制
     this.#loop.updatables.push(this.#controls) // 添加轨道动画
 
-    const light = createLights() // 创建照明
-    this.#scene.add(light.ambientLight, light.mainLight) // 向场景中添加光照
+    this.#light = createLights() // 创建照明
+    this.#scene.add(this.#light.ambientLight, this.#light.mainLight) // 向场景中添加光照
     this.#resizer = new Resizer(this.#el, this.#camera, this.#renderer) // 监听容器尺寸变化
 
     this.#setDevTools() // 使用开发工具
@@ -75,6 +75,7 @@ export default class FlyingBird {
     this.#camera.clear()
     this.#scene.clear()
     this.#resizer.dispose()
+    this.#light.dispose()
     this.#destroyDevTools()
   }
 
